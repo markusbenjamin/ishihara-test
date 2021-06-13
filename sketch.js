@@ -84,7 +84,7 @@ function draw() {
   else {
     fill(0);
     textSize(fontSizes[0]);
-    text('Text finished. Score:  '+ round(100*getScore())+'%', width * 0.5, height * 0.5);
+    text('Test finished. Score:  '+ round(100*getScore())+'%', width * 0.5, height * 0.5);
     noFill();
   }
 }
