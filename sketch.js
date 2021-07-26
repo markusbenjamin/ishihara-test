@@ -104,7 +104,7 @@ function draw() {
 
 function nextPlate() {
   if (plate == 0 || responseInput.value() != '') {
-    if (0 < plate && plate < plateImages.length) {
+    if (0 < plate && plate < plateImages.length + 1) {
       responses.push(responseInput.value());
       responseInput.value('');
     }
@@ -130,7 +130,7 @@ function getErrors() {
   var greenSpecificTotal = 0;
   var totalSpecificTotal = 0;
   var elseTotal = 0;
-  for (var i = 0; i < plateImages.length - 1; i++) {
+  for (var i = 0; i < plateImages.length; i++) {
     if (responses[i] == truth[i]) {
       truthTotal++;
     }
