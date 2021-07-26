@@ -15,11 +15,14 @@ function setup() {
 
   plate = 0;
   plateImages = [];
-  for (var i = 1; i < 13; i++) {
-    plateImages.push(loadImage('plates/' + i + '.jpg'));
+  for (var i = 1; i < 18; i++) {
+    plateImages.push(loadImage('plates2/Plate' + i + '.gif'));
   }
   responses = [];
-  truth = ['74', '6', '16', '2', '29', '7', '45', '5', '97', '8', '42', '3'];
+  truth = ['12', '8', '29', '5', '3', '15', '74', '6', '45', '5', '7', '16', '73', 'nothing', 'nothing', '26', '42'];
+  redSpecificError = [null, '3', '70', '2', '5', '17', '21', 'n', 'n', 'n', 'n', 'n', 'n', '5', '45', '6', null];
+  greenSpecificError = [null, '3', '70', '2', '5', '17', '21', 'n', 'n', 'n', 'n', 'n', 'n', '5', '45', null, '2'];
+  totalSpecificError = ['n', 'n', 'n', 'n', 'n', 'n', 'n', 'n', 'n', 'n', 'n', 'n', 'n', null, null, null, null];
 
   nextButton = createButton('Next');
   nextButton.mousePressed(nextPlate);
@@ -74,17 +77,17 @@ function draw() {
   if (plate == 0) {
     fill(0);
     textSize(fontSizes[0]);
-    text('You are going to see colorful images with numbers in them.\n\nYour taks is to write the number you see in the image into the box below it.\n\nPress Next to start the test.', width * 0.5, height * 0.5);
+    text('You are going to see colorful images that may or may not contain a number.\n\nYour taks is to write the number you see in the image into the box below it, if you see one.\nIf you cannot see a number clearly, write \'n\' in the box below.\n\nPress Next to start the test.', width * 0.5, height * 0.5);
     noFill();
   }
-  else if (plate < 13) {
+  else if (plate < plateImages.length) {
     responseInput.show();
     image(plateImages[plate - 1], width * 0.5, height * 0.5);
   }
   else {
     fill(0);
     textSize(fontSizes[0]);
-    text('Test finished. Score:  '+ round(100*getScore())+'%', width * 0.5, height * 0.5);
+    text('Test finished. Score:  ' + round(100 * getScore()) + '%', width * 0.5, height * 0.5);
     noFill();
   }
 }
