@@ -16,12 +16,13 @@ function setup() {
   plate = 0;
   plateImages = [];
   for (var i = 1; i < 18; i++) {
-    plateImages.push(loadImage('plates2/Plate' + i + '.gif'));
+    plateImages.push(loadImage('plates2/Plate' + i + '.jpg'));
   }
   responses = [];
-  truth = ['12', '8', '29', '5', '3', '15', '74', '6', '45', '5', '7', '16', '73', 'nothing', 'nothing', '26', '42'];
-  redSpecificError = [null, '3', '70', '2', '5', '17', '21', 'n', 'n', 'n', 'n', 'n', 'n', '5', '45', '6', null];
-  greenSpecificError = [null, '3', '70', '2', '5', '17', '21', 'n', 'n', 'n', 'n', 'n', 'n', '5', '45', null, '2'];
+  truth = ['12', '8', '29', '5', '3', '15', '74', '6', '45', '5', '7', '16', '73', 'n', 'n', '26', '42'];
+  redGreenSpecificError = [null, '3', '70', '2', '5', '17', '21', 'n', 'n', 'n', 'n', 'n', 'n', '5', '45', null, null];
+  redSpecificError = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '6', null];
+  greenSpecificError = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2'];
   totalSpecificError = ['n', 'n', 'n', 'n', 'n', 'n', 'n', 'n', 'n', 'n', 'n', 'n', 'n', null, null, null, null];
 
   nextButton = createButton('Next');
@@ -80,27 +81,38 @@ function draw() {
     text('You are going to see colorful images that may or may not contain a number.\n\nYour taks is to write the number you see in the image into the box below it, if you see one.\nIf you cannot see a number clearly, write \'n\' in the box below.\n\nPress Next to start the test.', width * 0.5, height * 0.5);
     noFill();
   }
-  else if (plate < plateImages.length) {
+  else if (plate < plateImages.length + 1) {
     responseInput.show();
     image(plateImages[plate - 1], width * 0.5, height * 0.5);
   }
   else {
+    var errors = getErrors();
     fill(0);
     textSize(fontSizes[0]);
-    text('Test finished. Score:  ' + round(100 * getScore()) + '%', width * 0.5, height * 0.5);
+    text(
+      'Test finished. Total correct: ' + errors[0] +
+      '\nErrors specific to red-green color blindness: ' + errors[1] +
+      '\nErrors specific to red color blindness: ' + errors[2] +
+      '\nErrors specific to green color blindness: ' + errors[3] +
+      '\nErrors specific to total color blindness: ' + errors[4] +
+      '\nOther errors: ' + errors[5],
+      width * 0.5, height * 0.5
+    );
     noFill();
   }
 }
 
 function nextPlate() {
-  if (0 < plate && plate < 13) {
-    responses.push(responseInput.value());
-    responseInput.value('');
-  }
-  plate++;
-  if (plate == 13) {
-    nextButton.hide();
-    responseInput.hide();
+  if (plate == 0 || responseInput.value() != '') {
+    if (0 < plate && plate < plateImages.length) {
+      responses.push(responseInput.value());
+      responseInput.value('');
+    }
+    plate++;
+    if (plate == plateImages.length + 1) {
+      nextButton.hide();
+      responseInput.hide();
+    }
   }
 }
 
@@ -111,12 +123,32 @@ function styleElement(element, w, h, fS) {
   element.style('font-size', fS + 'px');
 }
 
-function getScore() {
-  var total = 0;
-  for (var i = 0; i < 12; i++) {
-    if (truth[i] == responses[i]) {
-      total++
+function getErrors() {
+  var truthTotal = 0;
+  var redGreenSpecificTotal = 0;
+  var redSpecificTotal = 0;
+  var greenSpecificTotal = 0;
+  var totalSpecificTotal = 0;
+  var elseTotal = 0;
+  for (var i = 0; i < plateImages.length - 1; i++) {
+    if (responses[i] == truth[i]) {
+      truthTotal++;
+    }
+    else if (responses[i] == redGreenSpecificError[i]) {
+      redGreenSpecificTotal++;
+    }
+    else if (responses[i] == redSpecificError[i]) {
+      redSpecificTotal++;
+    }
+    else if (responses[i] == greenSpecificError[i]) {
+      greenSpecificTotal++;
+    }
+    else if (responses[i] == totalSpecificError[i]) {
+      totalSpecificTotal++;
+    }
+    else {
+      elseTotal++;
     }
   }
-  return total / 12;
+  return [truthTotal, redGreenSpecificTotal, redSpecificTotal, greenSpecificTotal, totalSpecificTotal, elseTotal];
 }
