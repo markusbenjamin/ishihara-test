@@ -48,7 +48,7 @@ function calculateSizes() {
     height * 0.85
   ];
   buttonSize = [
-    width * 0.1,
+    width * 0.15,
     height * 0.05
   ];
   inputPos = [
