@@ -79,7 +79,7 @@ function draw() {
     fill(0);
     textSize(fontSizes[0]);
     //text('You are going to see colorful images that may or may not contain a number.\n\nYour task is to write the number you see in the image into the box below it, if you see one.\nIf you cannot see a number clearly, write \'n\' in the box below.\n\nPress Next to start the test.', width * 0.5, height * 0.5);
-    text('Különböző színes képeket fogsz látni, amelyek tartalmazhatnak számokat is.\n\nAz lesz a feladatod, hogy írd be a látott számot a kép alatti szövegdobozba. Ha nem látsz semmilyen számot, vagy bizonytalan vagy, akkor írj egy n betűt a szövegdobozba.\n\nKattints a gombra a kezdéshez', width * 0.5, height * 0.5);
+    text('Különböző színes képeket fogsz látni, amelyek tartalmazhatnak számokat is.\n\nAz lesz a feladatod, hogy írd be a látott számot a kép alatti szövegdobozba.\nHa nem látsz semmilyen számot, vagy bizonytalan vagy, akkor írj egy n betűt a szövegdobozba.\n\nKattints a gombra a kezdéshez', width * 0.5, height * 0.5);
     noFill();
   }
   else if (plate < plateImages.length + 1) {
