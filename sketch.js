@@ -91,7 +91,7 @@ function draw() {
     fill(0);
     textSize(fontSizes[0]);
     text(
-      'Vége a tesztnek. Összes hiba: ' + errors[0] +
+      'Vége a tesztnek. Összes találat: ' + errors[0] +
       '\nVörös-zöld hibák: ' + errors[1] +
       '\nVörös hibák: ' + errors[2] +
       '\nZöld hibák: ' + errors[3] +
